@@ -11,5 +11,3 @@ six==1.16.0
 Werkzeug==2.0.1
 gunicorn
 pandas
-math
-ast

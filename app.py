@@ -27,18 +27,18 @@ def getDistance(lat1,lon1,lat2,lon2):
 
 class Pins(Resource):
     def get(self):
-        data = pd.read_csv('../Final_Datset_Mss_Anomaly.csv')  # read CSV
+        data = pd.read_csv('modified.csv')  # read CSV
         data = data.to_dict()  # convert dataframe to dictionary
         return {'data' :data},200
 
-     
+
 class NearestDistance(Resource):
     def post(self):
         parser = reqparse.RequestParser()  # initialize
-        
+
         parser.add_argument('lat', required=True)  # add args
         parser.add_argument('long', required=True)
-        
+
         args = parser.parse_args()  # parse arguments to dictionary
         distances =50000000
         index1 =-1
@@ -56,7 +56,7 @@ class NearestDistance(Resource):
             if (dist <distances):
                 distances = dist
                 index1 = index
-        
+
         print(df.iloc[index1])
         send_data = {
             'longitude' : df.iloc[index1]['longitude'],
@@ -66,7 +66,7 @@ class NearestDistance(Resource):
             'mss_anom_scaled' :df.iloc[index1]['mss_anom_scaled']
         }
         return {'data' :send_data},200
-       
+
 
 api.add_resource(Pins, '/pins')
 api.add_resource(NearestDistance,'/distance')

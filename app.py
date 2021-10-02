@@ -27,7 +27,7 @@ def getDistance(lat1,lon1,lat2,lon2):
 
 class Pins(Resource):
     def get(self):
-        data = pd.read_csv('modified.csv')  # read CSV
+        data = pd.read_csv('../Final_Datset_Mss_Anomaly.csv')  # read CSV
         data = data.to_dict()  # convert dataframe to dictionary
         return {'data' :data},200
 
@@ -63,7 +63,11 @@ class NearestDistance(Resource):
             'latitude' :df.iloc[index1]['Latittude'],
             'mss_p' :df.iloc[index1]['mss_p'],
             'mss_anom' : df.iloc[index1]['mss_anom'],
-            'mss_anom_scaled' :df.iloc[index1]['mss_anom_scaled']
+            'mss_anom_scaled' :df.iloc[index1]['mss_anom_scaled'],
+            'pressure' : df.iloc[index1]['pressure'],
+            'humidity' :df.iloc[index1]['humidity'],
+            'wind_speed' :df.iloc[index1]['wind_speed'],
+            'temperature' :df.iloc[index1]['temperature']
         }
         return {'data' :send_data},200
 
